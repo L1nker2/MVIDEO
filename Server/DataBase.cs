@@ -1,27 +1,17 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 using System.Data;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Server
 {
     public class DataBase:DbContext
     {
-        public static string sqlstr;
+        public static string sqlstr = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\User\\Documents\\MVIDEO.mdf;Integrated Security=True;Connect Timeout=30";
         public DbSet<Product> Product { get; set; }
         public DbSet<User> User { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(sqlstr);
-        }
-        public void AddProduct()
-        {
-
-        }
-        public void AddUser()
-        {
-
         }
         static public void ShowTables()
         {
@@ -63,12 +53,96 @@ namespace Server
                 }
             }
             List<string> tables = GetTables(sqlstr);
-            for(int i = 0; i < tables.Count; i++)
+            for (int i = 0; i < tables.Count; i++)
             {
                 Console.WriteLine($"{i} - {tables[i]}");
             }
             int.TryParse(Console.ReadLine(), out int tableId);
-            if(tableId > tables.Count) Console.WriteLine("Error index above array size!");
+            if (tableId > tables.Count) Console.WriteLine("Error index above array size!");
+            using (SqlConnection connection = new SqlConnection(sqlstr))
+            {
+                connection.Open();
+
+                string query = $"SELECT * FROM {tables[tableId]}";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                Console.WriteLine(reader[i]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        static public void InsertLine()
+        {
+            Console.WriteLine("\nSelect table:");
+            List<string> GetTables(string connectionString)
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    DataTable schema = connection.GetSchema("Tables");
+                    List<string> TableNames = new List<string>();
+                    foreach (DataRow row in schema.Rows)
+                    {
+                        TableNames.Add(row[2].ToString());
+                    }
+                    return TableNames;
+                }
+            }
+            List<string> tables = GetTables(sqlstr);
+            List<string> columns = new List<string>();
+            for (int i = 0; i < tables.Count; i++)
+            {
+                Console.WriteLine($"{i} - {tables[i]}");
+            }
+            int.TryParse(Console.ReadLine(), out int tableId);
+            if (tableId > tables.Count) Console.WriteLine("Error index above array size!");
+            using (SqlConnection connection = new SqlConnection(sqlstr))
+            {
+                connection.Open();
+
+                // Используйте системную таблицу "INFORMATION_SCHEMA.COLUMNS" для получения информации о полях таблицы
+                string query = "SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @TableName";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@TableName", tables[tableId]);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string columnName = reader["COLUMN_NAME"].ToString();
+                            string dataType = reader["DATA_TYPE"].ToString();
+                            Console.WriteLine("Column Name: " + columnName + ", Data Type: " + dataType);
+                            columns.Add(columnName);
+                        }
+                    }
+                }
+            }
+            if (tables[tableId] == "Product")
+            {
+                Console.WriteLine("Instead of the value for \"ImgBase64\" just enter the path for the image!");
+            }
+            List<string> values = new List<string>();
+            foreach(var column in columns)
+            {
+                Console.WriteLine($"Insert value for \"{column}\":");
+                string inp = Console.ReadLine();
+                if (inp == "")
+                {
+                    Console.WriteLine("Error null input");
+                    return;
+                }
+            }
             
         }
     }
