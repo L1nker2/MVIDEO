@@ -1,6 +1,12 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Server
 {
@@ -37,7 +43,7 @@ namespace Server
         }
         static public void PrintTable()
         {
-            Console.WriteLine("\nSelect table:");
+            Console.WriteLine("\nSelect table:\n");
             List<string> GetTables(string connectionString)
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -58,7 +64,7 @@ namespace Server
                 Console.WriteLine($"{i} - {tables[i]}");
             }
             int.TryParse(Console.ReadLine(), out int tableId);
-            if (tableId > tables.Count) Console.WriteLine("Error index above array size!");
+            if (tableId > tables.Count) Console.WriteLine("\nError index above array size!\n");
             using (SqlConnection connection = new SqlConnection(sqlstr))
             {
                 connection.Open();
@@ -82,7 +88,7 @@ namespace Server
         }
         static public void InsertLine()
         {
-            Console.WriteLine("\nSelect table:");
+            Console.WriteLine("\nSelect table:\n");
             List<string> GetTables(string connectionString)
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -104,14 +110,11 @@ namespace Server
                 Console.WriteLine($"{i} - {tables[i]}");
             }
             int.TryParse(Console.ReadLine(), out int tableId);
-            if (tableId > tables.Count) Console.WriteLine("Error index above array size!");
+            if (tableId > tables.Count) Console.WriteLine("\nError index above array size!\n");
             using (SqlConnection connection = new SqlConnection(sqlstr))
             {
                 connection.Open();
-
-                // Используйте системную таблицу "INFORMATION_SCHEMA.COLUMNS" для получения информации о полях таблицы
                 string query = "SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @TableName";
-
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@TableName", tables[tableId]);
@@ -123,27 +126,44 @@ namespace Server
                             string columnName = reader["COLUMN_NAME"].ToString();
                             string dataType = reader["DATA_TYPE"].ToString();
                             Console.WriteLine("Column Name: " + columnName + ", Data Type: " + dataType);
-                            columns.Add(columnName);
+                            if (columnName != "Id") columns.Add(columnName);
                         }
                     }
                 }
             }
             if (tables[tableId] == "Product")
             {
-                Console.WriteLine("Instead of the value for \"ImgBase64\" just enter the path for the image!");
+                Console.WriteLine("\nInstead of the value for \"ImgBase64\" just enter the path for the image!\n");
             }
-            List<string> values = new List<string>();
-            foreach(var column in columns)
+            var temp = new Dictionary<string, string> ();
+            foreach (var column in columns)
             {
-                Console.WriteLine($"Insert value for \"{column}\":");
+                Console.WriteLine($"\nInsert value for \"{column}\":\n");
                 string inp = Console.ReadLine();
                 if (inp == "")
                 {
-                    Console.WriteLine("Error null input");
+                    Console.WriteLine("\nError null input\n");
                     return;
                 }
+                temp.Add(column, inp);
             }
-            
+            if (tables[tableId] == "Product")
+            {
+                temp["ImgBase64"] = Convert.ToBase64String(File.ReadAllBytes(temp["ImgBase64"]));
+            }
+            using(SqlConnection connection = new SqlConnection(sqlstr))
+            {
+                connection.Open();
+                string fields = string.Join(", ", temp.Keys);
+                string values = string.Join(", ", temp.Values.Select(value => $"'{value}'"));
+                string query = $"INSERT INTO {tables[tableId]} ({string.Join(",", temp.Keys)}) " +
+                                           $"VALUES (N'{string.Join("', N'", temp.Values)}')";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+            Console.WriteLine("\nThe addition was successful, you can check it\n");
         }
     }
 }

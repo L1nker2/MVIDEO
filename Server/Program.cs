@@ -2,18 +2,8 @@
 
 while (true)
 {
-    if (args.Length == 0)
+    if (args.Length == 1)
     {
-        WriteHelpMessage();
-    }
-    else if (args.Length == 1)
-    {
-        if (args[0] == "--run-server")
-        {
-            int port = 4444;
-            AsyncService service = new AsyncService(port);
-            service.Run();
-        }
         if (args[0] == "-h")
         {
             WriteHelpMessage();
@@ -45,11 +35,13 @@ while (true)
         }
     }
 }
+int port = 4444;
+AsyncService service = new AsyncService(port);
+service.Run().GetAwaiter().GetResult();
 static void WriteHelpMessage()
 {
     Console.WriteLine("Server version 0.1 BETA\n" +
         "How use:\n" +
         "-h - print this message\n" +
-        "--db-work - run work with DB mode\n" +
-        "--run-server - run server ;-:\n");
+        "--db-work - run work with DB mode\n");
 }

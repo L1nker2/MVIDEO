@@ -1,5 +1,6 @@
 ﻿using System.Net.Sockets;
 using System.Net;
+using Newtonsoft.Json;
 
 namespace Server
 {
@@ -25,12 +26,11 @@ namespace Server
         }
         private IPAddress ipAddress;
         private int port;
-        public async void Run()
+        public async Task Run()
         {
             TcpListener listener = new TcpListener(this.ipAddress, this.port);
             listener.Start();
-            Console.Write("Array Min and Avg service is now running");
-
+            Console.Write("Server is running");
             Console.WriteLine(" on port " + this.port);
             Console.WriteLine("Hit <enter> to stop service\n");
             while (true)
@@ -81,8 +81,15 @@ namespace Server
         }
         private static string Response(string request)
         {
-            string response = "";
-            return response;
+            string[] req = request.Split("&");
+            string command = req[0].Substring(7, req[0].Length-1);
+            if(command == "LoadProductsPlease")
+            {
+                List<Product> products = new DataBase().Product.ToList();
+                string serializedProducts = JsonConvert.SerializeObject(products);
+                return serializedProducts;
+            }
+            return "";
         }
     }
 }

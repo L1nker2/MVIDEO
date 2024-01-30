@@ -38,6 +38,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Katalog";
             this.Text = "Katalog";
+            this.Load += new System.EventHandler(this.Katalog_Load);
             this.ResumeLayout(false);
 
         }
