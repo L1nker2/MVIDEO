@@ -1,5 +1,9 @@
 ﻿using Server;
 
+int port = 4444;
+AsyncService service = new AsyncService(port);
+service.Run().GetAwaiter().GetResult();
+
 while (true)
 {
     if (args.Length == 1)
@@ -28,16 +32,13 @@ while (true)
             {
                 DataBase.InsertLine();
             }
-            if(chose == "4")
+            if (chose == "4")
             {
                 return;
             }
         }
     }
 }
-int port = 4444;
-AsyncService service = new AsyncService(port);
-service.Run().GetAwaiter().GetResult();
 static void WriteHelpMessage()
 {
     Console.WriteLine("Server version 0.1 BETA\n" +
