@@ -44,5 +44,5 @@ static void WriteHelpMessage()
     Console.WriteLine("Server version 0.1 BETA\n" +
         "How use:\n" +
         "-h - print this message\n" +
-        "--db-work - run work with DB mode\n");
+        "--db-work - run work with DB mode\n\n");
 }
