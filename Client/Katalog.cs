@@ -69,6 +69,7 @@ namespace Client
                 
                 foreach (Product product in products)
                 {
+                    /*
                     Panel panelProductCard = new Panel();
                     panelProductCard.BorderStyle = BorderStyle.FixedSingle;
 
@@ -95,6 +96,8 @@ namespace Client
                     panelProductCard.Controls.Add(buttonBuy);
 
                     this.Controls.Add(panelProductCard);
+                    */
+                    CreateCard(new Point(72, 87), product);
                 }
             }
             catch (Exception ex)
@@ -102,9 +105,64 @@ namespace Client
                 MessageBox.Show(ex.Message);
             }
         }
+
+        public void CreateCard(Point location, Product product)
+        {
+            Panel cardPanel = new Panel();
+            cardPanel.Location = location;
+            cardPanel.Size = new Size(300, 400);
+            cardPanel.BorderStyle = BorderStyle.FixedSingle;
+
+            // Создание картинки товара
+            PictureBox imageBox = new PictureBox();
+            imageBox.Parent = cardPanel;
+            imageBox.Location = new Point(3, 3);
+            imageBox.Size = new Size(294, 200);
+            imageBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            imageBox.Image = DecodeBase64Image(product.ImgBase64);
+
+            // Создание названия товара
+            Label nameLabel = new Label();
+            nameLabel.Parent = cardPanel;
+            nameLabel.Location = new Point(10, 220);
+            nameLabel.Size = new Size(200, 100);
+            nameLabel.AutoSize = true;
+            nameLabel.Font = new Font("Arial", 12);
+            nameLabel.Text = product.Name;
+
+            // Создание цены товара
+            Label priceLabel = new Label();
+            priceLabel.Parent = cardPanel;
+            priceLabel.Location = new Point(10, 290);
+            priceLabel.Size = new Size(200, 25);
+            priceLabel.AutoSize = true;
+            priceLabel.Font = new Font("Arial", 12);
+            priceLabel.Text = product.Price + " ₽";
+
+            // Создание кнопки добавления в корзину
+            Button addButton = new Button();
+            addButton.Parent = cardPanel;
+            addButton.Location = new Point(50, 340);
+            addButton.Size = new Size(200, 50);
+            addButton.Font = new Font("Arial", 12);
+            addButton.ForeColor = Color.White;
+            addButton.BackColor = ColorTranslator.FromHtml("#e21235");
+            addButton.Text = "В корзину";
+            addButton.Click += (sender, e) => BuyButtonClick(product.Id);
+
+            // Добавление элементов карточки на панель
+            cardPanel.Controls.Add(imageBox);
+            cardPanel.Controls.Add(nameLabel);
+            cardPanel.Controls.Add(priceLabel);
+            cardPanel.Controls.Add(addButton);
+
+            // Добавление панели на форму
+            this.Controls.Add(cardPanel);
+        }
+
         private void BuyButtonClick(int productId)
         {
-            MessageBox.Show("okey");
+            MessageBox.Show($"okey {productId}");
             // Ваш код для обработки действия при нажатии кнопки "Купить" для выбранного товара
             // Используйте productId для получения нужного вам товара из базы данных и выполнения соответствующих действий
         }

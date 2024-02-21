@@ -68,7 +68,7 @@ namespace Server
                         await writer.WriteLineAsync(response);
                     }
                     else
-                        break; // клиент закрыл соединение
+                        break;
                 }
                 tcpClient.Close();
             }
@@ -81,9 +81,8 @@ namespace Server
         }
         private static string Response(string request)
         {
-            string[] req = request.Split("&");
-            string command = req[0].Substring(7, req[0].Length-1);
-            if(command == "LoadProductsPlease")
+            string command = request.Substring(8, request.Length - 9);
+            if (command == "LoadProductsPlease")
             {
                 List<Product> products = new DataBase().Product.ToList();
                 string serializedProducts = JsonConvert.SerializeObject(products);
