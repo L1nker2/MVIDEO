@@ -70,3 +70,9 @@ private void BuyButtonClick(int productId)
 }
 
 Обратите внимание, что в данном примере предполагается, что у вас уже есть форма и объект Panel с именем panelProducts, который будет служить контейнером для всех карточек товаров.
+
+
+
+
+сделать tui для сервера https://github.com/user-simon/Fungal-UI
+
