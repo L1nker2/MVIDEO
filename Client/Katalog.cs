@@ -20,10 +20,12 @@ namespace Client
         {
             InitializeComponent();
         }
+
         private static async Task<string> SendRequest(string server, int port, string command)
         {
             IPAddress ipAddress = null;
             IPHostEntry ipHostInfo = Dns.GetHostEntry(server);
+
             for (int i = 0; i < ipHostInfo.AddressList.Length; ++i)
             {
                 if (ipHostInfo.AddressList[i].AddressFamily ==
@@ -33,20 +35,25 @@ namespace Client
                     break;
                 }
             }
+
             if (ipAddress == null)
                 throw new Exception("No IPv4 address for server");
+
             TcpClient client = new TcpClient();
-            await client.ConnectAsync(ipAddress, port); // соединение
+            await client.ConnectAsync(ipAddress, port);
             NetworkStream networkStream = client.GetStream();
+
             StreamWriter writer = new StreamWriter(networkStream);
             StreamReader reader = new StreamReader(networkStream);
+
             writer.AutoFlush = true;
-            string requestData = "command=" + command + "&"; // 'End-of-request'
+            string requestData = "command=" + command + "&";
             await writer.WriteLineAsync(requestData);
             string response = await reader.ReadLineAsync();
             client.Close();
             return response;
         }
+
         private Image DecodeBase64Image(string base64Image)
         {
             byte[] imageBytes = Convert.FromBase64String(base64Image);
@@ -65,42 +72,45 @@ namespace Client
                 int port = 4444;
                 string command = "LoadProductsPlease";
                 string sResponse = await SendRequest(server, port, command);
+
                 List<Product> products = JsonConvert.DeserializeObject<List<Product>>(sResponse);
+                
                 foreach (Product product in products)
                 {
-                    CreateCard(new Point(72, 87), product);
+                    CreateCard(new Point(10, 10), product);
                 }
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
         //locations:
-        //10;10
-        //316;10
-        //622;10
-        //step = 20
+        //47; 10
+        //341;10
+        //635;10
+        //step = 74
         public void CreateCard(Point location, Product product)
         {
             Panel cardPanel = new Panel();
             cardPanel.Location = location;
-            cardPanel.Size = new Size(270, 350);
+            cardPanel.Size = new Size(220, 355);
             cardPanel.BorderStyle = BorderStyle.FixedSingle;
 
             // Создание картинки товара
             PictureBox imageBox = new PictureBox();
             imageBox.Parent = cardPanel;
-            imageBox.Location = new Point(3, 3);
-            imageBox.Size = new Size(262, 200);
+            imageBox.Location = new Point(0, 0);
+            imageBox.Size = new Size(220, 220);
             imageBox.SizeMode = PictureBoxSizeMode.StretchImage;
             imageBox.Image = DecodeBase64Image(product.ImgBase64);
 
             // Создание названия товара
             Label nameLabel = new Label();
             nameLabel.Parent = cardPanel;
-            nameLabel.Location = new Point(3, 216);
-            nameLabel.Size = new Size(262, 53);
+            nameLabel.Location = new Point(0, 226);
+            nameLabel.Size = new Size(220, 48);
             nameLabel.AutoSize = false;
             nameLabel.AutoEllipsis = true;
             nameLabel.Font = new Font("Arial", 12);
@@ -109,8 +119,8 @@ namespace Client
             // Создание цены товара
             Label priceLabel = new Label();
             priceLabel.Parent = cardPanel;
-            priceLabel.Location = new Point(3, 269);
-            priceLabel.Size = new Size(200, 25);
+            priceLabel.Location = new Point(0, 283);
+            priceLabel.Size = new Size(220, 30);
             priceLabel.AutoSize = true;
             priceLabel.Font = new Font("Arial", 12);
             priceLabel.Text = product.Price + " ₽";
@@ -118,8 +128,8 @@ namespace Client
             // Создание кнопки добавления в корзину
             Button addButton = new Button();
             addButton.Parent = cardPanel;
-            addButton.Location = new Point(75, 305);
-            addButton.Size = new Size(120, 40);
+            addButton.Location = new Point(60, 320);
+            addButton.Size = new Size(100, 35);
             addButton.Font = new Font("Arial", 12, FontStyle.Bold);
             addButton.ForeColor = Color.White;
             addButton.BackColor = ColorTranslator.FromHtml("#e21235");
@@ -133,7 +143,7 @@ namespace Client
             cardPanel.Controls.Add(addButton);
 
             // Добавление панели на форму
-            this.Controls.Add(cardPanel);
+            productsPanel.Controls.Add(cardPanel);
         }
 
         private void BuyButtonClick(int productId)
@@ -142,6 +152,7 @@ namespace Client
             // Ваш код для обработки действия при нажатии кнопки "Купить" для выбранного товара
             // Используйте productId для получения нужного вам товара из базы данных и выполнения соответствующих действий
         }
+
         private async void Katalog_Load(object sender, EventArgs e)
         {
             await LoadProduct();
