@@ -1,8 +1,5 @@
 ﻿using Server;
-WriteHelpMessage();
-int port = 4444;
-AsyncService service = new AsyncService(port);
-service.Run().GetAwaiter().GetResult();
+
 if (args[0] == "--db-work")
 {
     while (true)
@@ -31,10 +28,28 @@ if (args[0] == "--db-work")
         }
     }
 }
+
+if (args[0] == "--run")
+{
+    RunServer();
+}
+
+else
+{
+    WriteHelpMessage();
+}
+
+void RunServer()
+{
+    int port = 4444;
+    AsyncService service = new AsyncService(port);
+    service.Run().GetAwaiter().GetResult();
+}
+
 static void WriteHelpMessage()
 {
     Console.WriteLine("Server version 0.1 BETA\n" +
         "How use:\n" +
-        "--run-server\n" +
+        "--run\n" +
         "--db-work");
 }

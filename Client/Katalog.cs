@@ -1,14 +1,10 @@
 ﻿using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,6 +16,10 @@ namespace Client
         {
             InitializeComponent();
         }
+
+        int i = 1;
+        int x = 47;
+        int y = 10;
 
         private static async Task<string> SendRequest(string server, int port, string command)
         {
@@ -66,8 +66,8 @@ namespace Client
 
         private async Task LoadProduct()
         {
-            try
-            {
+            //try
+            //{
                 string server = "127.0.0.1";
                 int port = 4444;
                 string command = "LoadProductsPlease";
@@ -75,17 +75,27 @@ namespace Client
 
                 List<Product> products = JsonConvert.DeserializeObject<List<Product>>(sResponse);
                 
-                foreach (Product product in products)
+                foreach(var product in products)
                 {
-                    CreateCard(new Point(10, 10), product);
+                    if(i % 3 == 0)
+                    {
+                        y += 375;
+                        x = 47;
+                    }
+                    CreateCard(new Point(x, y), product);
+                    x += 294;
+                    i++;
                 }
-            }
+            //}
 
-            catch (Exception ex)
+            /*
+             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+             */
         }
+        //panel size = 902; 552
         //locations:
         //47; 10
         //341;10
@@ -143,7 +153,7 @@ namespace Client
             cardPanel.Controls.Add(addButton);
 
             // Добавление панели на форму
-            productsPanel.Controls.Add(cardPanel);
+            productPanel.Controls.Add(cardPanel);
         }
 
         private void BuyButtonClick(int productId)

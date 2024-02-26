@@ -29,31 +29,24 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
-            this.productsPanel = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.productsPanel.SuspendLayout();
+            this.productPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.panel1);
             this.panel2.Location = new System.Drawing.Point(10, 10);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(400, 554);
             this.panel2.TabIndex = 2;
-            // 
-            // productsPanel
-            // 
-            this.productsPanel.Controls.Add(this.panel1);
-            this.productsPanel.Location = new System.Drawing.Point(416, 10);
-            this.productsPanel.Name = "productsPanel";
-            this.productsPanel.Size = new System.Drawing.Size(902, 552);
-            this.productsPanel.TabIndex = 3;
             // 
             // panel1
             // 
@@ -61,7 +54,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(341, 10);
+            this.panel1.Location = new System.Drawing.Point(87, 28);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(220, 355);
             this.panel1.TabIndex = 0;
@@ -105,18 +98,26 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // productPanel
+            // 
+            this.productPanel.AutoScroll = true;
+            this.productPanel.Location = new System.Drawing.Point(416, 10);
+            this.productPanel.Name = "productPanel";
+            this.productPanel.Size = new System.Drawing.Size(902, 552);
+            this.productPanel.TabIndex = 3;
+            // 
             // Katalog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1330, 574);
-            this.Controls.Add(this.productsPanel);
+            this.Controls.Add(this.productPanel);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Katalog";
             this.Text = "Katalog";
             this.Load += new System.EventHandler(this.Katalog_Load);
-            this.productsPanel.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -125,11 +126,11 @@
 
         #endregion
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel productsPanel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.FlowLayoutPanel productPanel;
     }
 }
