@@ -30,17 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.menuPanel = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.menuPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuPanel
             // 
-            this.menuPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.menuPanel.BackColor = System.Drawing.Color.White;
             this.menuPanel.Controls.Add(this.button2);
             this.menuPanel.Controls.Add(this.button1);
             this.menuPanel.Controls.Add(this.label2);
@@ -50,6 +50,28 @@
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(1348, 100);
             this.menuPanel.TabIndex = 6;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(18)))), ((int)(((byte)(53)))));
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(1023, 27);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(148, 38);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Каталог";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(18)))), ((int)(((byte)(53)))));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(1188, 27);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(148, 38);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Корзина";
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // label2
             // 
@@ -73,34 +95,13 @@
             // 
             // mainPanel
             // 
+            this.mainPanel.BackColor = System.Drawing.Color.White;
             this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 100);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(1348, 621);
             this.mainPanel.TabIndex = 7;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(18)))), ((int)(((byte)(53)))));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(1188, 27);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(148, 38);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Корзина";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(18)))), ((int)(((byte)(53)))));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(1023, 27);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(148, 38);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Каталог";
-            this.button2.UseVisualStyleBackColor = false;
             // 
             // Main
             // 
