@@ -34,6 +34,11 @@ if (args[0] == "--run")
     RunServer();
 }
 
+if (args[0] == "--debug")
+{
+    Test.CodeInBase64("C:\\Users\\User\\source\\repos\\MVIDEO\\Server\\Images\\alisa.jpg");
+}
+
 else
 {
     WriteHelpMessage();

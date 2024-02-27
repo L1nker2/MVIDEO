@@ -119,7 +119,7 @@ namespace Server
                         {
                             string columnName = reader["COLUMN_NAME"].ToString();
                             string dataType = reader["DATA_TYPE"].ToString();
-                            Console.WriteLine("Column Name: " + columnName + ", Data Type: " + dataType);
+                            Console.WriteLine("Column Name: " + columnName + ", Data Type: " + dataType + "\n");
                             if (columnName != "Id") columns.Add(columnName);
                         }
                     }

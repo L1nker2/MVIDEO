@@ -54,8 +54,26 @@ namespace Client
             return response;
         }
 
+        private bool IsValidBase64String(string base64String)
+        {
+            try
+            {
+                Convert.FromBase64String(base64String);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         private Image DecodeBase64Image(string base64Image)
         {
+            if (!IsValidBase64String(base64Image))
+            {
+                throw new ArgumentException("Недопустимый параметр. Неверное Base64-представление изображения.");
+            }
+
             byte[] imageBytes = Convert.FromBase64String(base64Image);
             using (MemoryStream ms = new MemoryStream(imageBytes))
             {
@@ -66,8 +84,8 @@ namespace Client
 
         private async Task LoadProduct()
         {
-            //try
-            //{
+            try
+            {
                 string server = "127.0.0.1";
                 int port = 4444;
                 string command = "LoadProductsPlease";
@@ -86,14 +104,12 @@ namespace Client
                     x += 294;
                     i++;
                 }
-            //}
+            }
 
-            /*
-             catch (Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-             */
         }
         //panel size = 902; 552
         //locations:
@@ -106,7 +122,8 @@ namespace Client
             Panel cardPanel = new Panel();
             cardPanel.Location = location;
             cardPanel.Size = new Size(220, 355);
-            cardPanel.BorderStyle = BorderStyle.FixedSingle;
+            cardPanel.BorderStyle = BorderStyle.None;
+            cardPanel.Margin = new Padding(60, 20, 0, 0);
 
             // Создание картинки товара
             PictureBox imageBox = new PictureBox();
@@ -166,6 +183,91 @@ namespace Client
         private async void Katalog_Load(object sender, EventArgs e)
         {
             await LoadProduct();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            //смартфоны и гаджеты
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            //Ноутбуки и компьютеры
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            //Телевизоры и цифровое ТВ
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            //Аудиотехника
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            //Техника для кухни
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            //Техника для дома
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+            //Красота и здоровье
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+            //Умный дом
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+            //Игры и софт
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+            //Premium
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+            //Хобби и развлечения
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+            //Спортивные товары
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+            //Электроинструменты и садовая техника
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+            //Товары для дома
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+            //Фото и видео
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+            //Автоэлектроника
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+            //Аксессуары
         }
     }
 }
