@@ -22,5 +22,10 @@ namespace Client
             childForm.BringToFront();
             childForm.Show();
         }
+
+        private void label1_Click(object sender, System.EventArgs e)
+        {
+            Katalog._Load(Katalog.products);
+        }
     }
 }

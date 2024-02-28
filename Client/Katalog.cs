@@ -1,4 +1,11 @@
-﻿using System;
+﻿//panel size = 902; 552
+//locations:
+//47; 10
+//341;10
+//635;10
+//step = 74
+
+using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,9 +24,10 @@ namespace Client
             InitializeComponent();
         }
 
-        int i = 1;
-        int x = 47;
-        int y = 10;
+        public static int i = 1;
+        public static int x = 47;
+        public static int y = 10;
+        public static List<Product> products;
 
         private static async Task<string> SendRequest(string server, int port, string command)
         {
@@ -54,7 +62,7 @@ namespace Client
             return response;
         }
 
-        private bool IsValidBase64String(string base64String)
+        private static bool IsValidBase64String(string base64String)
         {
             try
             {
@@ -67,7 +75,7 @@ namespace Client
             }
         }
 
-        private Image DecodeBase64Image(string base64Image)
+        private static Image DecodeBase64Image(string base64Image)
         {
             if (!IsValidBase64String(base64Image))
             {
@@ -91,7 +99,7 @@ namespace Client
                 string command = "LoadProductsPlease";
                 string sResponse = await SendRequest(server, port, command);
 
-                List<Product> products = JsonConvert.DeserializeObject<List<Product>>(sResponse);
+                products = JsonConvert.DeserializeObject<List<Product>>(sResponse);
                 
                 foreach(var product in products)
                 {
@@ -111,13 +119,8 @@ namespace Client
                 MessageBox.Show(ex.Message);
             }
         }
-        //panel size = 902; 552
-        //locations:
-        //47; 10
-        //341;10
-        //635;10
-        //step = 74
-        public void CreateCard(Point location, Product product)
+        
+        public static void CreateCard(Point location, Product product)
         {
             Panel cardPanel = new Panel();
             cardPanel.Location = location;
@@ -173,11 +176,41 @@ namespace Client
             productPanel.Controls.Add(cardPanel);
         }
 
-        private void BuyButtonClick(int productId)
+        private static void BuyButtonClick(int productId)
         {
             MessageBox.Show($"okey {productId}");
             // Ваш код для обработки действия при нажатии кнопки "Купить" для выбранного товара
             // Используйте productId для получения нужного вам товара из базы данных и выполнения соответствующих действий
+        }
+
+        private void SelectCategory(string category)
+        {
+            productPanel.Controls.Clear();
+            List<Product> productsWithCategory = new List<Product>();
+            foreach(var product in products)
+            {
+                if(product.Category == category)
+                {
+                    productsWithCategory.Add(product);
+                }
+            }
+            _Load(productsWithCategory);
+        }
+
+        public static void _Load(List<Product> products)
+        {
+            productPanel.Controls.Clear();
+            foreach (var product in products)
+            {
+                if (i % 3 == 0)
+                {
+                    y += 375;
+                    x = 47;
+                }
+                CreateCard(new Point(x, y), product);
+                x += 294;
+                i++;
+            }
         }
 
         private async void Katalog_Load(object sender, EventArgs e)
@@ -188,86 +221,97 @@ namespace Client
         private void label1_Click(object sender, EventArgs e)
         {
             //Смартфоны и гаджеты
+            SelectCategory(label1.Text);
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
             //Ноутбуки и компьютеры
+            SelectCategory(label2.Text);
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
             //Телевизоры и цифровое ТВ
+            SelectCategory(label3.Text);
         }
 
         private void label4_Click(object sender, EventArgs e)
         {
             //Аудиотехника
+            SelectCategory(label4.Text);
         }
 
         private void label5_Click(object sender, EventArgs e)
         {
             //Техника для кухни
+            SelectCategory(label5.Text);
         }
 
         private void label6_Click(object sender, EventArgs e)
         {
             //Техника для дома
+            SelectCategory(label6.Text);
         }
 
         private void label7_Click(object sender, EventArgs e)
         {
             //Красота и здоровье
+            SelectCategory(label7.Text);
         }
 
         private void label8_Click(object sender, EventArgs e)
         {
             //Умный дом
+            SelectCategory(label8.Text);
         }
 
         private void label9_Click(object sender, EventArgs e)
         {
             //Игры и софт
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-            //Premium
+            SelectCategory(label9.Text);
         }
 
         private void label11_Click(object sender, EventArgs e)
         {
             //Хобби и развлечения
+            SelectCategory(label11.Text);
         }
 
         private void label12_Click(object sender, EventArgs e)
         {
             //Спортивные товары
+            SelectCategory(label13.Text);
         }
 
         private void label13_Click(object sender, EventArgs e)
         {
             //Электроинструменты и садовая техника
+            SelectCategory(label13.Text);
         }
 
         private void label14_Click(object sender, EventArgs e)
         {
             //Товары для дома
+            SelectCategory(label14.Text);
         }
 
         private void label15_Click(object sender, EventArgs e)
         {
             //Фото и видео
+            SelectCategory(label15.Text);
         }
 
         private void label16_Click(object sender, EventArgs e)
         {
             //Автоэлектроника
+            SelectCategory(label16.Text);
         }
 
         private void label17_Click(object sender, EventArgs e)
         {
             //Аксессуары
+            SelectCategory(label17.Text);
         }
     }
 }
