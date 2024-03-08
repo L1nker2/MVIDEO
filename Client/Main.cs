@@ -4,12 +4,22 @@ namespace Client
 {
     public partial class Main : Form
     {
+        private Form activeForm = null;
+
         public Main()
         {
+            Settings.Default.startCount++;
+
             InitializeComponent();
             openChildForm(new Katalog());
+
+            if (Settings.Default.startCount < 2)
+            {
+                Registration reg = new Registration();
+                reg.Show();
+            }
         }
-        private Form activeForm = null;
+
         private void openChildForm(Form childForm)
         {
             if (activeForm != null) activeForm.Close();
@@ -26,6 +36,16 @@ namespace Client
         private void label1_Click(object sender, System.EventArgs e)
         {
             Katalog._Load(Katalog.products);
+        }
+
+        private void button1_Click(object sender, System.EventArgs e)
+        {
+            openChildForm(new Bascket());
+        }
+
+        private void button2_Click(object sender, System.EventArgs e)
+        {
+            openChildForm(new Katalog());
         }
     }
 }

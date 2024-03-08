@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -46,6 +47,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             productPanel = new System.Windows.Forms.FlowLayoutPanel();
+            notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -276,6 +278,11 @@
             productPanel.Size = new System.Drawing.Size(902, 552);
             productPanel.TabIndex = 3;
             // 
+            // notifyIcon1
+            // 
+            notifyIcon1.Text = "notifyIcon1";
+            notifyIcon1.Visible = true;
+            // 
             // Katalog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -296,7 +303,6 @@
 
         #endregion
         private System.Windows.Forms.Panel panel2;
-        private static System.Windows.Forms.FlowLayoutPanel productPanel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label9;
@@ -313,5 +319,7 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
+        private static System.Windows.Forms.FlowLayoutPanel productPanel;
+        public static System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }

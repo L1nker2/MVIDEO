@@ -1,11 +1,4 @@
-﻿//panel size = 902; 552
-//locations:
-//47; 10
-//341;10
-//635;10
-//step = 74
-
-using System;
+﻿using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Drawing;
@@ -29,7 +22,7 @@ namespace Client
         public static int y = 10;
         public static List<Product> products;
 
-        private static async Task<string> SendRequest(string server, int port, string command)
+        public static async Task<string> SendRequest(string server, int port, string command)
         {
             IPAddress ipAddress = null;
             IPHostEntry ipHostInfo = Dns.GetHostEntry(server);
@@ -90,7 +83,7 @@ namespace Client
             }
         }
 
-        private async Task LoadProduct()
+        public async Task LoadProduct()
         {
             try
             {
@@ -120,7 +113,7 @@ namespace Client
             }
         }
         
-        public static void CreateCard(Point location, Product product)
+        public static async void CreateCard(Point location, Product product)
         {
             Panel cardPanel = new Panel();
             cardPanel.Location = location;
@@ -164,7 +157,7 @@ namespace Client
             addButton.ForeColor = Color.White;
             addButton.BackColor = ColorTranslator.FromHtml("#e21235");
             addButton.Text = "В корзину";
-            addButton.Click += (sender, e) => BuyButtonClick(product.Id);
+            addButton.Click += async (sender, e) => BuyButtonClick(product.Id);
 
             // Добавление элементов карточки на панель
             cardPanel.Controls.Add(imageBox);
@@ -176,11 +169,33 @@ namespace Client
             productPanel.Controls.Add(cardPanel);
         }
 
-        private static void BuyButtonClick(int productId)
+        private static async void BuyButtonClick(int productId)
         {
-            MessageBox.Show($"okey {productId}");
-            // Ваш код для обработки действия при нажатии кнопки "Купить" для выбранного товара
-            // Используйте productId для получения нужного вам товара из базы данных и выполнения соответствующих действий
+            try
+            {
+                string server = "127.0.0.1";
+                int port = 4444;
+                string command = $"AddToBasketPlease&userId={Settings.Default.userId}&productId={productId}";
+                string sResponse = await SendRequest(server, port, command);
+
+                if (sResponse != "Okey")
+                {
+                    MessageBox.Show($"На сервере произошла ошибка:\n{sResponse}");
+                    return;
+                }
+                else
+                {
+                    notifyIcon1.Icon = SystemIcons.Information;
+                    notifyIcon1.BalloonTipTitle = "Товар добавлен";
+                    notifyIcon1.BalloonTipText = $"Товар успешно добавлен в корзину.";
+                    notifyIcon1.ShowBalloonTip(2000); // Показать уведомление на 2 секунды
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void SelectCategory(string category)
@@ -218,6 +233,7 @@ namespace Client
             await LoadProduct();
         }
 
+        #region labels
         private void label1_Click(object sender, EventArgs e)
         {
             //Смартфоны и гаджеты
@@ -313,5 +329,6 @@ namespace Client
             //Аксессуары
             SelectCategory(label17.Text);
         }
+        #endregion
     }
 }

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    public partial class Buscket : Form
+    public partial class test : Form
     {
-        public Buscket()
+        public test()
         {
             InitializeComponent();
         }

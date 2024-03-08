@@ -1,4 +1,5 @@
 ﻿using Server;
+using Server.Controllers;
 
 if (args[0] == "--db-work")
 {
@@ -9,19 +10,24 @@ if (args[0] == "--db-work")
         "2 - Print table data\n" +
         "3 - Update table\n" +
         "4 - Exit\n");
+        
         string chose = Console.ReadLine();
+
         if (chose == "1")
         {
-            DataBase.ShowTables();
+            DbController.ShowTables();
         }
+
         if (chose == "2")
         {
-            DataBase.PrintTable();
+            DbController.PrintTable();
         }
+
         if (chose == "3")
         {
-            DataBase.InsertLine();
+            DbController.InsertLine();
         }
+
         if (chose == "4")
         {
             return;
@@ -32,11 +38,6 @@ if (args[0] == "--db-work")
 if (args[0] == "--run")
 {
     RunServer();
-}
-
-if (args[0] == "--debug")
-{
-    Test.CodeInBase64("C:\\Users\\User\\source\\repos\\MVIDEO\\Server\\Images\\alisa.jpg");
 }
 
 else
