@@ -8,7 +8,7 @@
 1. Свойства проекта Server
 2. Вкладка РЕСУРСЫ
 3. Нажать на "Создать или открыть ресурсы сборки"
-4. Изменить значение переменной sqlstr чтобы в "AttachDbFilename=" был указан путь до базы данных(AttachDbFilename=C:\Users\User\Documents\MVIDEO.md)
+4. Изменить значение переменной sqlstr чтобы в "AttachDbFilename=" был указан путь до базы данных(AttachDbFilename=C:\Users\User\Documents\MVIDEO.mdf)
 
 Completed:
 1. База данных с товарами
