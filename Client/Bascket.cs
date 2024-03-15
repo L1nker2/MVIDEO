@@ -185,5 +185,15 @@ namespace Client
 
             await LoadProduct(command);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Ваш заказ принят в обработку.\nОжидайте сообщения о готовности на ваш номер телефона");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Ваш заказ принят в обработку.\nОжидайте сообщения о готовности на ваш номер телефона");
+        }
     }
 }

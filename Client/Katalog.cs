@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace Client
 {
@@ -21,6 +22,26 @@ namespace Client
         public static int x = 47;
         public static int y = 10;
         public static List<Product> products;
+
+        static public async Task PerformSearchAsync(string searchText)
+        {
+            List<Product> searchResults = await Task.Run(() =>
+            {
+                // Поиск товаров, соответствующих введенному тексту
+                return products.Where(p => p.Name.Contains(searchText)).ToList();
+            });
+
+            // Отрисовка карточек товаров (например, вызов вашей функции отрисовки)
+            _Load(searchResults);
+        }
+
+        static public void TextBoxSearch_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = Main.textBoxSearch.Text;
+
+            // Вызов асинхронного метода поиска при изменении текста
+            PerformSearchAsync(searchText);
+        }
 
         public static async Task<string> SendRequest(string server, int port, string command)
         {
@@ -214,6 +235,19 @@ namespace Client
 
         public static void _Load(List<Product> products)
         {
+            if(products.Count == 0)
+            {
+                productPanel.Controls.Clear();
+                Label label = new Label();
+                label.AutoSize = true;
+                label.Font = new Font("Arial", 20);
+                label.Text = "Ничего не найдено";
+                label.Parent = productPanel;
+                label.ForeColor = Color.Red;
+                productPanel.Controls.Add(label);
+                return;
+            }
+
             productPanel.Controls.Clear();
             foreach (var product in products)
             {

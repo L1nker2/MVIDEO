@@ -35,12 +35,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.mainPanel = new System.Windows.Forms.Panel();
+            textBoxSearch = new System.Windows.Forms.TextBox();
             this.menuPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuPanel
             // 
             this.menuPanel.BackColor = System.Drawing.Color.White;
+            this.menuPanel.Controls.Add(textBoxSearch);
             this.menuPanel.Controls.Add(this.button2);
             this.menuPanel.Controls.Add(this.button1);
             this.menuPanel.Controls.Add(this.label2);
@@ -107,6 +109,15 @@
             this.mainPanel.Size = new System.Drawing.Size(1348, 621);
             this.mainPanel.TabIndex = 7;
             // 
+            // textBoxSearch
+            // 
+            textBoxSearch.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            textBoxSearch.Location = new System.Drawing.Point(483, 31);
+            textBoxSearch.Name = "textBoxSearch";
+            textBoxSearch.Size = new System.Drawing.Size(403, 30);
+            textBoxSearch.TabIndex = 4;
+            textBoxSearch.TextChanged += Katalog.TextBoxSearch_TextChanged;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -132,5 +143,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        static public System.Windows.Forms.TextBox textBoxSearch;
     }
 }
