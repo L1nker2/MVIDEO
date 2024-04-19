@@ -1,26 +1,33 @@
-﻿using System.Windows.Forms;
+﻿using System.Configuration;
+using System.Windows.Forms;
+using Client.Views;
 
 namespace Client
 {
     public partial class Main : Form
     {
-        private Form activeForm = null;
+        static private Form activeForm = null;
 
         public Main()
         {
-            Settings.Default.startCount++;
+            var config = ConfigurationManager.OpenExeConfiguration( ConfigurationUserLevel.None );
+            
+            int startCount = int.Parse( config.AppSettings.Settings["startCount"].Value );
+            startCount++;
+            config.AppSettings.Settings["startCount"].Value = startCount.ToString();
+            config.Save();
 
             InitializeComponent();
             openChildForm(new Katalog());
 
-            if (Settings.Default.startCount < 2)
+            if (startCount < 2)
             {
                 Registration reg = new Registration();
                 reg.Show();
             }
         }
 
-        private void openChildForm(Form childForm)
+        static public void openChildForm(Form childForm)
         {
             if (activeForm != null) activeForm.Close();
             activeForm = childForm;
@@ -35,7 +42,7 @@ namespace Client
 
         private void label1_Click(object sender, System.EventArgs e)
         {
-            Katalog._Load(Katalog.products);
+            openChildForm(new Katalog());
         }
 
         private void button1_Click(object sender, System.EventArgs e)
@@ -46,6 +53,11 @@ namespace Client
         private void button2_Click(object sender, System.EventArgs e)
         {
             openChildForm(new Katalog());
+        }
+
+        private void button3_Click( object sender, System.EventArgs e )
+        {
+            openChildForm( new Profile() );
         }
     }
 }

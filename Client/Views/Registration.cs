@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Windows.Forms;
 
 namespace Client
@@ -12,6 +13,8 @@ namespace Client
 
         private async void button1_Click(object sender, EventArgs e)
         {
+            var config = ConfigurationManager.OpenExeConfiguration( ConfigurationUserLevel.None );
+
             string fname = textBox1.Text;
             string sname = textBox2.Text;
             string login = textBox4.Text;
@@ -43,8 +46,9 @@ namespace Client
 
                     string sResponse = await Katalog.SendRequest(server, port, command);
 
-                    Settings.Default.isLogin = true;
-                    Settings.Default.userId = int.Parse(sResponse);
+                    config.AppSettings.Settings["isLogin"].Value = "true";
+                    config.AppSettings.Settings["userId"].Value = sResponse;
+                    config.Save();
                 }
                 catch (Exception ex)
                 {
@@ -65,8 +69,8 @@ namespace Client
 
                     if(sResponse != "Login error")
                     {
-                        Settings.Default.isLogin = true;
-                        Settings.Default.userId = int.Parse(sResponse);
+                        config.AppSettings.Settings["isLogin"].Value = "true";
+                        config.AppSettings.Settings["userId"].Value = sResponse;
                         this.Close();
                     }
 

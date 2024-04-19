@@ -8,6 +8,8 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Linq;
+using System.Configuration;
+using Client.Views;
 
 namespace Client
 {
@@ -89,7 +91,7 @@ namespace Client
             }
         }
 
-        private static Image DecodeBase64Image(string base64Image)
+        public static Image DecodeBase64Image(string base64Image)
         {
             if (!IsValidBase64String(base64Image))
             {
@@ -149,6 +151,8 @@ namespace Client
             imageBox.Size = new Size(220, 220);
             imageBox.SizeMode = PictureBoxSizeMode.StretchImage;
             imageBox.Image = DecodeBase64Image(product.ImgBase64);
+            imageBox.Cursor = Cursors.Hand;
+            imageBox.Click += async ( sender, e ) => ShowProduct( product.Id );
 
             // Создание названия товара
             Label nameLabel = new Label();
@@ -186,17 +190,40 @@ namespace Client
             cardPanel.Controls.Add(priceLabel);
             cardPanel.Controls.Add(addButton);
 
+            if (product.Count == 0)
+            {
+                cardPanel.Enabled = false;
+            }
+
             // Добавление панели на форму
             productPanel.Controls.Add(cardPanel);
         }
 
-        private static async void BuyButtonClick(int productId)
+        private static async void ShowProduct(int productId )
         {
+            Product product = new Product();
+            for(i = 0; i < products.Count; i++)
+            {
+                if (products[i].Id == productId)
+                {
+                    product = products[i]; break;
+                }
+            }
+            Main.openChildForm( new CardForm(product) );
+        }
+
+        public static async void BuyButtonClick(int productId)
+        {
+            if (ConfigurationManager.AppSettings["isLogin"] == "false")
+            {
+                MessageBox.Show( "Чтобы добавить товар в корзину, необходимо войти/зарегестрироваться" );
+                return;
+            }
             try
             {
                 string server = "127.0.0.1";
                 int port = 4444;
-                string command = $"AddToBasketPlease&userId={Settings.Default.userId}&productId={productId}";
+                string command = $"AddToBasketPlease&userId={ConfigurationManager.AppSettings["userId"]}&productId={productId}";
                 string sResponse = await SendRequest(server, port, command);
 
                 if (sResponse != "Okey")
@@ -209,7 +236,7 @@ namespace Client
                     notifyIcon1.Icon = SystemIcons.Information;
                     notifyIcon1.BalloonTipTitle = "Товар добавлен";
                     notifyIcon1.BalloonTipText = $"Товар успешно добавлен в корзину.";
-                    notifyIcon1.ShowBalloonTip(2000); // Показать уведомление на 2 секунды
+                    notifyIcon1.ShowBalloonTip(1000); // Показать уведомление на 2 секунды
                 }
             }
 

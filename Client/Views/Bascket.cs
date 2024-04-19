@@ -7,13 +7,12 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Configuration;
 
 namespace Client
 {
     public partial class Bascket : Form
     {
-        int sum = 0;
-        int count = 0;
         static List<Product> products;
 
         public Bascket()
@@ -125,7 +124,9 @@ namespace Client
 
         private static async void RemoveFromBascket(int id)
         {
-            string command = $"RemoveProductPlease&userId={Settings.Default.userId}&productId={id}";
+            var config = ConfigurationManager.OpenExeConfiguration( ConfigurationUserLevel.None );
+
+            string command = $"RemoveProductPlease&userId={config.AppSettings.Settings["userId"].Value} & productId={id}";
 
             flowLayoutPanel1.Controls.Clear();
 
@@ -181,7 +182,9 @@ namespace Client
 
         private async void Bascket_Load(object sender, EventArgs e)
         {
-            string command = $"LoadBasketPlease&id={Settings.Default.userId}";
+            var config = ConfigurationManager.OpenExeConfiguration( ConfigurationUserLevel.None );
+
+            string command = $"LoadBasketPlease&id={config.AppSettings.Settings["userId"].Value}";
 
             await LoadProduct(command);
         }
