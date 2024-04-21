@@ -36,15 +36,15 @@
             this.passLabel = new System.Windows.Forms.Label();
             this.editBtn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.fnameTb = new System.Windows.Forms.TextBox();
-            this.nameTb = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.logTb = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.saveBtn = new System.Windows.Forms.Button();
             this.passTb = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.saveBtn = new System.Windows.Forms.Button();
+            this.logTb = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.snameTb = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.fnameTb = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,7 +122,7 @@
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.logTb);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.nameTb);
+            this.panel1.Controls.Add(this.snameTb);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.fnameTb);
             this.panel1.Controls.Add(this.label2);
@@ -131,53 +131,17 @@
             this.panel1.Size = new System.Drawing.Size(265, 339);
             this.panel1.TabIndex = 7;
             // 
-            // label2
+            // saveBtn
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 23);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Имя";
-            // 
-            // fnameTb
-            // 
-            this.fnameTb.Location = new System.Drawing.Point(7, 35);
-            this.fnameTb.Name = "fnameTb";
-            this.fnameTb.Size = new System.Drawing.Size(250, 30);
-            this.fnameTb.TabIndex = 1;
-            // 
-            // nameTb
-            // 
-            this.nameTb.Location = new System.Drawing.Point(7, 103);
-            this.nameTb.Name = "nameTb";
-            this.nameTb.Size = new System.Drawing.Size(250, 30);
-            this.nameTb.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 73);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 23);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Фамилия";
-            // 
-            // logTb
-            // 
-            this.logTb.Location = new System.Drawing.Point(7, 171);
-            this.logTb.Name = "logTb";
-            this.logTb.Size = new System.Drawing.Size(250, 30);
-            this.logTb.TabIndex = 5;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 141);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 23);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Логин";
+            this.saveBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(18)))), ((int)(((byte)(53)))));
+            this.saveBtn.ForeColor = System.Drawing.Color.White;
+            this.saveBtn.Location = new System.Drawing.Point(33, 275);
+            this.saveBtn.Name = "saveBtn";
+            this.saveBtn.Size = new System.Drawing.Size(200, 50);
+            this.saveBtn.TabIndex = 8;
+            this.saveBtn.Text = "Сохранить";
+            this.saveBtn.UseVisualStyleBackColor = false;
+            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
             // 
             // passTb
             // 
@@ -195,17 +159,53 @@
             this.label5.TabIndex = 6;
             this.label5.Text = "Пароль";
             // 
-            // saveBtn
+            // logTb
             // 
-            this.saveBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(18)))), ((int)(((byte)(53)))));
-            this.saveBtn.ForeColor = System.Drawing.Color.White;
-            this.saveBtn.Location = new System.Drawing.Point(33, 275);
-            this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(200, 50);
-            this.saveBtn.TabIndex = 8;
-            this.saveBtn.Text = "Сохранить";
-            this.saveBtn.UseVisualStyleBackColor = false;
-            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
+            this.logTb.Location = new System.Drawing.Point(7, 171);
+            this.logTb.Name = "logTb";
+            this.logTb.Size = new System.Drawing.Size(250, 30);
+            this.logTb.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 141);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(61, 23);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Логин";
+            // 
+            // snameTb
+            // 
+            this.snameTb.Location = new System.Drawing.Point(7, 103);
+            this.snameTb.Name = "snameTb";
+            this.snameTb.Size = new System.Drawing.Size(250, 30);
+            this.snameTb.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 73);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(91, 23);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Фамилия";
+            // 
+            // fnameTb
+            // 
+            this.fnameTb.Location = new System.Drawing.Point(7, 35);
+            this.fnameTb.Name = "fnameTb";
+            this.fnameTb.Size = new System.Drawing.Size(250, 30);
+            this.fnameTb.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 23);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Имя";
             // 
             // Profile
             // 
@@ -223,7 +223,7 @@
             this.Controls.Add(this.webBrowser1);
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Profile";
             this.Text = "Profile";
             this.panel1.ResumeLayout(false);
@@ -247,7 +247,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox logTb;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox nameTb;
+        private System.Windows.Forms.TextBox snameTb;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox fnameTb;
         private System.Windows.Forms.Label label2;

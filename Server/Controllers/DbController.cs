@@ -386,5 +386,33 @@ namespace Server.Controllers
                 }
             }
         }
+
+
+        static public void EditUser( string id, User user )
+        {
+            // Создание объекта SqlConnection
+            using (SqlConnection connection = new SqlConnection( sqlstr ))
+            {
+                // Открытие подключения
+                connection.Open();
+
+                // Создание SQL запроса на обновление записи
+                string sql = "UPDATE Users SET Fname = @fname, Sname = @sname, Login = @log, Password = @pass WHERE Id = @id";
+
+                // Создание объекта SqlCommand с SQL запросом и подключением
+                using (SqlCommand command = new SqlCommand( sql, connection ))
+                {
+                    // Задание параметров для обновления записи
+                    command.Parameters.AddWithValue( "@fname", user.FName );
+                    command.Parameters.AddWithValue( "@sname", user.SName );
+                    command.Parameters.AddWithValue( "@log", user.Login );
+                    command.Parameters.AddWithValue( "pass", user.Password );
+                    command.Parameters.AddWithValue( "@id", id );
+
+                    // Выполнение SQL запроса
+                    int rowsAffected = command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

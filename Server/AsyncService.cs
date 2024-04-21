@@ -3,6 +3,7 @@ using System.Net;
 using Newtonsoft.Json;
 using Server.Models;
 using Server.Controllers;
+using Microsoft.Extensions.Logging;
 
 namespace Server
 {
@@ -210,6 +211,28 @@ namespace Server
                 {
                     return ex.Message;
                 }
+            }
+
+
+            if(command == "UpdateUserPlease")
+            {
+                string id = data[1];
+                string fname = data[2];
+                string sname = data[3];
+                string log = data[4];
+                string pass = data[5];
+
+                User user = new()
+                {
+                    FName = fname,
+                    SName = sname,
+                    Login = log,
+                    Password = pass
+                };
+
+                DbController.EditUser( id, user );
+
+                return "Okey";
             }
 
 
