@@ -6,7 +6,8 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
-using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using Client.Models;
 
 namespace Client.Views
 {
@@ -16,15 +17,19 @@ namespace Client.Views
         {
             var config = ConfigurationManager.OpenExeConfiguration( ConfigurationUserLevel.None );
 
+            if(config.AppSettings.Settings["isLogin"].Value == "false")
+            {
+
+            }
+
             string command = "LoadUserDataPlease";
-            string data = $"id={config.AppSettings.Settings["userId"].Value}";
+            string data = $"{config.AppSettings.Settings["userId"].Value}&";
 
-
+            SendRequest( command, data );
         }
         public Profile()
         {
             InitializeComponent();
-            panel1.Visible = false;
         }
 
         private void editBtn_Click( object sender, System.EventArgs e )
@@ -71,7 +76,27 @@ namespace Client.Views
 
                 string sResponse = await SendData( server, port, command, data );
 
-                ProcessResponce( sResponse );
+                if(command == "LoadUserDataPlease")
+                {
+                    if(sResponse == "Error null user")
+                    {
+                        MessageBox.Show( "При загрузке данных на сервере произошла ошибка(не удалось найти запись пользователя), попробуйте позже", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
+                        return;
+                    }
+                    else
+                    {
+                        User user = JsonConvert.DeserializeObject<User>( sResponse );
+
+                        fnameLabel.Text = user.FName;
+                        snameLabel.Text = user.SName;
+                        logLabel.Text = user.Login;
+                        passLabel.Text = user.Password;
+                    }
+                }
+                else
+                {
+                    ProcessResponce( sResponse );
+                }
             }
             catch(Exception ex)
             {
@@ -105,7 +130,7 @@ namespace Client.Views
             StreamReader reader = new StreamReader( networkStream );
 
             writer.AutoFlush = true;
-            string requestData = "command=" + command + $"data=" + data;
+            string requestData = "command=" + command + "&" + data;
             await writer.WriteLineAsync( requestData );
             string response = await reader.ReadLineAsync();
             client.Close();
@@ -124,6 +149,12 @@ namespace Client.Views
             {
                 MessageBox.Show( "Произошла ошибка" );
             }
+        }
+
+        private void button1_Click( object sender, EventArgs e )
+        {
+            panel1.Visible = false;
+            panel1.Location = new Point( 12, 342 );
         }
     }
 }

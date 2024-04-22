@@ -127,7 +127,7 @@ namespace Server
             }
 
 
-            if(command == "LoginPlease")
+            if (command == "LoginPlease")
             {
                 string login = data[1].Substring(6);
                 string pass = data[2].Substring(5);
@@ -145,7 +145,7 @@ namespace Server
             }
 
 
-            if(command == "LoadBasketPlease")
+            if (command == "LoadBasketPlease")
             {
                 string id = data[1].Substring(3);
 
@@ -164,7 +164,7 @@ namespace Server
             }
 
 
-            if(command == "AddToBasketPlease")
+            if (command == "AddToBasketPlease")
             {
                 try
                 {
@@ -185,7 +185,7 @@ namespace Server
             }
 
 
-            if(command == "RemoveProductPlease")
+            if (command == "RemoveProductPlease")
             {
                 int.TryParse(data[1].Substring(7), out int userId);
                 int.TryParse(data[2].Substring(10), out int productId);
@@ -214,7 +214,7 @@ namespace Server
             }
 
 
-            if(command == "UpdateUserPlease")
+            if (command == "UpdateUserPlease")
             {
                 string id = data[1];
                 string fname = data[2];
@@ -235,6 +235,20 @@ namespace Server
                 return "Okey";
             }
 
+
+            if (command == "LoadUserDataPlease")
+            {
+                User user = DbController.GetUser( data[1] );
+                if(user != null)
+                {
+                    string serializedUser= JsonConvert.SerializeObject( user );
+                    return serializedUser;
+                }
+                else
+                {
+                    return "Error null user";
+                }
+            }
 
             else
             {

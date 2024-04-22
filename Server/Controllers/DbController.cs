@@ -414,5 +414,38 @@ namespace Server.Controllers
                 }
             }
         }
+
+
+        static public User GetUser(string id)
+        {
+            using (SqlConnection connection = new SqlConnection( sqlstr ))
+            {
+                connection.Open();
+                string query = "SELECT * FROM Users WHERE Id = @Id";
+                SqlCommand command = new SqlCommand( query, connection );
+                command.Parameters.AddWithValue( "@Id", int.Parse( id ) );
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        User user = new User
+                        {
+                            Id = (int)reader["Id"],
+                            FName = reader["FName"].ToString(),
+                            SName = reader["SName"].ToString(),
+                            Login = reader["Login"].ToString(),
+                            Password = reader["Password"].ToString(),
+                            Basket = reader["Basket"].ToString()
+                        };
+                        return user;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
     }
 }

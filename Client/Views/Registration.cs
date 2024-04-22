@@ -49,6 +49,9 @@ namespace Client
                     config.AppSettings.Settings["isLogin"].Value = "true";
                     config.AppSettings.Settings["userId"].Value = sResponse;
                     config.Save();
+
+                    MessageBox.Show( "Регистрация прошла успешно" );
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
@@ -71,6 +74,8 @@ namespace Client
                     {
                         config.AppSettings.Settings["isLogin"].Value = "true";
                         config.AppSettings.Settings["userId"].Value = sResponse;
+                        config.Save();
+                        MessageBox.Show( $"Вход успешно выполнен {sResponse}" );
                         this.Close();
                     }
 

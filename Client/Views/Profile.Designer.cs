@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.label1 = new System.Windows.Forms.Label();
             this.fnameLabel = new System.Windows.Forms.Label();
             this.snameLabel = new System.Windows.Forms.Label();
@@ -36,6 +35,7 @@
             this.passLabel = new System.Windows.Forms.Label();
             this.editBtn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.saveBtn = new System.Windows.Forms.Button();
             this.passTb = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -47,15 +47,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // webBrowser1
-            // 
-            this.webBrowser1.Location = new System.Drawing.Point(337, 100);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(1010, 521);
-            this.webBrowser1.TabIndex = 0;
-            this.webBrowser1.Url = new System.Uri("https://www.mvideo.ru/shops/store-list?from=header", System.UriKind.Absolute);
             // 
             // label1
             // 
@@ -69,36 +60,36 @@
             // 
             // fnameLabel
             // 
-            this.fnameLabel.Location = new System.Drawing.Point(144, 20);
+            this.fnameLabel.Location = new System.Drawing.Point(69, 20);
             this.fnameLabel.Name = "fnameLabel";
-            this.fnameLabel.Size = new System.Drawing.Size(50, 28);
+            this.fnameLabel.Size = new System.Drawing.Size(208, 28);
             this.fnameLabel.TabIndex = 2;
             this.fnameLabel.Text = "Имя";
             this.fnameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // snameLabel
             // 
-            this.snameLabel.Location = new System.Drawing.Point(113, 88);
+            this.snameLabel.Location = new System.Drawing.Point(69, 88);
             this.snameLabel.Name = "snameLabel";
-            this.snameLabel.Size = new System.Drawing.Size(111, 28);
+            this.snameLabel.Size = new System.Drawing.Size(208, 28);
             this.snameLabel.TabIndex = 3;
             this.snameLabel.Text = "Фамилия";
             this.snameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // logLabel
             // 
-            this.logLabel.Location = new System.Drawing.Point(133, 156);
+            this.logLabel.Location = new System.Drawing.Point(69, 156);
             this.logLabel.Name = "logLabel";
-            this.logLabel.Size = new System.Drawing.Size(71, 28);
+            this.logLabel.Size = new System.Drawing.Size(208, 28);
             this.logLabel.TabIndex = 4;
             this.logLabel.Text = "Логин";
             this.logLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // passLabel
             // 
-            this.passLabel.Location = new System.Drawing.Point(124, 224);
+            this.passLabel.Location = new System.Drawing.Point(69, 224);
             this.passLabel.Name = "passLabel";
-            this.passLabel.Size = new System.Drawing.Size(90, 28);
+            this.passLabel.Size = new System.Drawing.Size(208, 28);
             this.passLabel.TabIndex = 5;
             this.passLabel.Text = "Пароль";
             this.passLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -117,6 +108,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.saveBtn);
             this.panel1.Controls.Add(this.passTb);
             this.panel1.Controls.Add(this.label5);
@@ -128,8 +120,21 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(12, 342);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(265, 339);
+            this.panel1.Size = new System.Drawing.Size(265, 389);
             this.panel1.TabIndex = 7;
+            this.panel1.Visible = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(18)))), ((int)(((byte)(53)))));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(33, 331);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(200, 50);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Отмена";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // saveBtn
             // 
@@ -220,7 +225,6 @@
             this.Controls.Add(this.snameLabel);
             this.Controls.Add(this.fnameLabel);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.webBrowser1);
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -229,12 +233,10 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
-
+            this.LoadData();
         }
 
         #endregion
-
-        private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label fnameLabel;
         private System.Windows.Forms.Label snameLabel;
@@ -251,5 +253,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox fnameTb;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button1;
     }
 }
