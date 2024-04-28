@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Configuration;
+using System.Runtime.CompilerServices;
 
 namespace Client
 {
     public partial class Bascket : Form
     {
         static List<Product> products;
-
+        public static int totalPrice;
         public Bascket()
         {
             InitializeComponent();
@@ -44,7 +45,10 @@ namespace Client
                 foreach(var product in products)
                 {
                     await GenerateCards(product);
+                    var price = product.Price.Replace( " ", "" );
+                    totalPrice += int.Parse(price);
                 }
+                label2.Text = $"Всего товаров: {products.Count}\r\n\r\nИтоговая цена: {totalPrice} ₽";
             }
 
             catch (Exception ex)
@@ -74,6 +78,7 @@ namespace Client
             CheckBox checkBox = new CheckBox();
             checkBox.Location = new Point(10, 85);
             checkBox.Size = new Size(30, 30);
+            checkBox.Checked = true;
             checkBox.CheckedChanged += async (sender, e) => CheackBoxCheaked(product.Id);
             checkBox.Parent = card;
 
@@ -104,7 +109,7 @@ namespace Client
             numeric.Location = new Point(871, 40);
             numeric.Size = new Size(61, 30);
             numeric.Font = new Font("Arial", 12);
-            numeric.ValueChanged += async (sender, e) => NumericChanged(product);
+            numeric.ValueChanged += async (sender, e) => NumericChanged(product, numeric);
             numeric.Minimum = 1;
             numeric.Maximum = product.Count;
             numeric.Parent = card;
@@ -130,14 +135,13 @@ namespace Client
 
             flowLayoutPanel1.Controls.Clear();
 
-            await LoadProduct(command);
-
+            await LoadProduct( command );
         }
 
 
-        private static async void NumericChanged(Product product)
+        private static async void NumericChanged(Product product, NumericUpDown numeric )
         {
-
+            
         }
 
 

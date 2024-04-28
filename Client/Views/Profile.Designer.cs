@@ -45,7 +45,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.fnameTb = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.notLoginPanel = new System.Windows.Forms.Panel();
+            this.loginBtn = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.notLoginPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -212,12 +217,52 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Имя";
             // 
+            // panel2
+            // 
+            this.panel2.Location = new System.Drawing.Point(337, 100);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1010, 521);
+            this.panel2.TabIndex = 8;
+            // 
+            // notLoginPanel
+            // 
+            this.notLoginPanel.Controls.Add(this.loginBtn);
+            this.notLoginPanel.Controls.Add(this.label6);
+            this.notLoginPanel.Location = new System.Drawing.Point(0, 0);
+            this.notLoginPanel.Name = "notLoginPanel";
+            this.notLoginPanel.Size = new System.Drawing.Size(337, 621);
+            this.notLoginPanel.TabIndex = 9;
+            this.notLoginPanel.Visible = false;
+            // 
+            // loginBtn
+            // 
+            this.loginBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(18)))), ((int)(((byte)(53)))));
+            this.loginBtn.ForeColor = System.Drawing.Color.White;
+            this.loginBtn.Location = new System.Drawing.Point(69, 255);
+            this.loginBtn.Name = "loginBtn";
+            this.loginBtn.Size = new System.Drawing.Size(200, 65);
+            this.loginBtn.TabIndex = 1;
+            this.loginBtn.Text = "Войти\r\nЗарегистрироваться";
+            this.loginBtn.UseVisualStyleBackColor = false;
+            this.loginBtn.Click += new System.EventHandler(this.loginBtn_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoEllipsis = true;
+            this.label6.Location = new System.Drawing.Point(3, 148);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(323, 76);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Похоже вы не выполнили вход для просмотра своего профиля =(";
+            // 
             // Profile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1348, 621);
+            this.Controls.Add(this.notLoginPanel);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.editBtn);
             this.Controls.Add(this.passLabel);
@@ -232,8 +277,9 @@
             this.Text = "Profile";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.notLoginPanel.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.LoadData();
+
         }
 
         #endregion
@@ -254,5 +300,9 @@
         private System.Windows.Forms.TextBox fnameTb;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel notLoginPanel;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button loginBtn;
     }
 }

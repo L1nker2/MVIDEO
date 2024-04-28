@@ -19,7 +19,8 @@ namespace Client.Views
 
             if(config.AppSettings.Settings["isLogin"].Value == "false")
             {
-
+                notLoginPanel.Location = new Point( 0, 0 );
+                return;
             }
 
             string command = "LoadUserDataPlease";
@@ -30,6 +31,7 @@ namespace Client.Views
         public Profile()
         {
             InitializeComponent();
+            LoadData();
         }
 
         private void editBtn_Click( object sender, System.EventArgs e )
@@ -155,6 +157,12 @@ namespace Client.Views
         {
             panel1.Visible = false;
             panel1.Location = new Point( 12, 342 );
+        }
+
+        private void loginBtn_Click( object sender, EventArgs e )
+        {
+            Registration f = new Registration();
+            f.Show();
         }
     }
 }

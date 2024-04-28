@@ -32,7 +32,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +51,7 @@
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(label2);
             this.panel1.Location = new System.Drawing.Point(1002, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(346, 621);
@@ -85,13 +85,13 @@
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(27, 90);
-            this.label2.Name = "label2";
-            this.label2.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.label2.Size = new System.Drawing.Size(292, 100);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Всего товаров:\r\n\r\nИтоговая цена: ";
+            label2.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            label2.Location = new System.Drawing.Point(27, 90);
+            label2.Name = "label2";
+            label2.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            label2.Size = new System.Drawing.Size(292, 100);
+            label2.TabIndex = 0;
+            label2.Text = "Всего товаров:\r\n\r\nИтоговая цена: ";
             // 
             // Bascket
             // 
@@ -112,8 +112,8 @@
         #endregion
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button2;
+        static public System.Windows.Forms.Label label2;
         static private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
