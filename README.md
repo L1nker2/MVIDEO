@@ -1,5 +1,5 @@
 Чтобы все работало отлично нужно сделать:
-1. Запустить сервер из каталога Realise(..\MVIDEO\Server\bin\Release\net8.0)
+1. Запустить сервер через терминал(cmd or powershell) из каталога Realise(..\MVIDEO\Server\bin\Release\net8.0)
 2. База данных уже настроена и дополнительной настройки не требует
 3. Запустить клиент (..\MVIDEO\Client\bin\Release)
 
