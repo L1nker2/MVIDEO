@@ -9,17 +9,34 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Configuration;
 using System.Runtime.CompilerServices;
+using System.Security.AccessControl;
 
 namespace Client
 {
     public partial class Bascket : Form
     {
         static List<Product> products;
-        public static int totalPrice;
+        static Dictionary<Product, int> priceMap = new Dictionary<Product, int>();
+        static decimal numValue = 1;
         public Bascket()
         {
             InitializeComponent();
         }
+
+
+        public static void LoadPrice()
+        {
+            int totalPrice = 0;
+            int totalTovars = 0;
+            foreach(var value in priceMap)
+            {
+                totalTovars += value.Value;
+                int price = int.Parse(value.Key.Price.Replace( " ", "" ));
+                totalPrice += price * value.Value;
+            }
+            label2.Text = $"Всего товаров: {totalTovars}\r\n\r\nИтоговая цена: {totalPrice} ₽";
+        }
+
 
         public static async Task LoadProduct(string command)
         {
@@ -46,9 +63,9 @@ namespace Client
                 {
                     await GenerateCards(product);
                     var price = product.Price.Replace( " ", "" );
-                    totalPrice += int.Parse(price);
+                    priceMap.Add( product, 1 );
+                    LoadPrice();
                 }
-                label2.Text = $"Всего товаров: {products.Count}\r\n\r\nИтоговая цена: {totalPrice} ₽";
             }
 
             catch (Exception ex)
@@ -79,7 +96,7 @@ namespace Client
             checkBox.Location = new Point(10, 85);
             checkBox.Size = new Size(30, 30);
             checkBox.Checked = true;
-            checkBox.CheckedChanged += async (sender, e) => CheackBoxCheaked(product.Id);
+            checkBox.CheckedChanged += async (sender, e) => CheackBoxCheaked(product, checkBox);
             checkBox.Parent = card;
 
             PictureBox picture = new PictureBox();
@@ -110,14 +127,14 @@ namespace Client
             numeric.Size = new Size(61, 30);
             numeric.Font = new Font("Arial", 12);
             numeric.ValueChanged += async (sender, e) => NumericChanged(product, numeric);
-            numeric.Minimum = 1;
+            numeric.Minimum = numValue;
             numeric.Maximum = product.Count;
             numeric.Parent = card;
 
             PictureBox remove = new PictureBox();
             remove.Size = new Size(41, 41);
             remove.Location = new Point(881, 119);
-            remove.Click += async (sender, e) => RemoveFromBascket(product.Id);
+            remove.Click += async (sender, e) => RemoveFromBascket(product);
             remove.Image = Properties.Resources.trash;
             remove.SizeMode = PictureBoxSizeMode.StretchImage;
             remove.Parent = card;
@@ -127,27 +144,49 @@ namespace Client
         }
 
 
-        private static async void RemoveFromBascket(int id)
+        private static async void RemoveFromBascket(Product product)
         {
             var config = ConfigurationManager.OpenExeConfiguration( ConfigurationUserLevel.None );
 
-            string command = $"RemoveProductPlease&userId={config.AppSettings.Settings["userId"].Value} & productId={id}";
+            string command = $"RemoveProductPlease&userId={config.AppSettings.Settings["userId"].Value} & productId={product.Id}";
 
             flowLayoutPanel1.Controls.Clear();
 
             await LoadProduct( command );
+            priceMap.Remove( product );
+            LoadPrice();
         }
 
 
         private static async void NumericChanged(Product product, NumericUpDown numeric )
         {
-            
+            if(numeric.Value > numValue)
+            {
+                numValue = numeric.Value;
+                priceMap[product]++;
+                LoadPrice();
+            }
+            if(numeric.Value < numValue)
+            {
+                numValue = numeric.Value;
+                priceMap[product]--;
+                LoadPrice();
+            }
         }
 
 
-        private static async void CheackBoxCheaked(int productId)
+        private static async void CheackBoxCheaked(Product product, CheckBox checkBox)
         {
-
+            if( checkBox.Checked == true)
+            {
+                priceMap.Add( product, 1 );
+                LoadPrice();
+            }
+            if(checkBox.Checked == false)
+            {
+                priceMap.Remove(product);
+                LoadPrice();
+            }
         }
 
 

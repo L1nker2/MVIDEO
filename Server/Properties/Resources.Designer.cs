@@ -61,9 +61,9 @@ namespace Server.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\Documents\MVIDEO.mdf;Integrated Security=True;Connect Timeout=30.
+        ///   Ищет локализованную строку, похожую на Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\MVIDEO.mdf;Integrated Security=True;Connect Timeout=30.
         /// </summary>
-        public static string sqlstr {
+        internal static string sqlstr {
             get {
                 return ResourceManager.GetString("sqlstr", resourceCulture);
             }

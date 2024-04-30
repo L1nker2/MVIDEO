@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Client.Views;
+using System;
 using System.Configuration;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace Client
@@ -9,6 +11,11 @@ namespace Client
         public Registration()
         {
             InitializeComponent();
+        }
+        public Registration(Profile profile)
+        {
+            InitializeComponent();
+            this.FormClosed += profile.formClose;
         }
 
         private async void button1_Click(object sender, EventArgs e)

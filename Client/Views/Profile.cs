@@ -8,11 +8,21 @@ using System.Windows.Forms;
 using System.Configuration;
 using Newtonsoft.Json;
 using Client.Models;
+using Microsoft.Web.WebView2;
 
 namespace Client.Views
 {
     public partial class Profile : Form
     {
+        Registration f;
+        
+
+        public void formClose( object sender, FormClosedEventArgs e )
+        {
+            LoadData();
+        }
+
+
         public void LoadData()
         {
             var config = ConfigurationManager.OpenExeConfiguration( ConfigurationUserLevel.None );
@@ -20,13 +30,17 @@ namespace Client.Views
             if(config.AppSettings.Settings["isLogin"].Value == "false")
             {
                 notLoginPanel.Location = new Point( 0, 0 );
-                return;
+                notLoginPanel.Visible = true;
+                
             }
+            if(config.AppSettings.Settings["isLogin"].Value == "true")
+            {
+                notLoginPanel.Visible= false;
+                string command = "LoadUserDataPlease";
+                string data = $"{config.AppSettings.Settings["userId"].Value}&";
 
-            string command = "LoadUserDataPlease";
-            string data = $"{config.AppSettings.Settings["userId"].Value}&";
-
-            SendRequest( command, data );
+                SendRequest( command, data );
+            }
         }
         public Profile()
         {
@@ -89,10 +103,10 @@ namespace Client.Views
                     {
                         User user = JsonConvert.DeserializeObject<User>( sResponse );
 
-                        fnameLabel.Text = user.FName;
-                        snameLabel.Text = user.SName;
-                        logLabel.Text = user.Login;
-                        passLabel.Text = user.Password;
+                        fnameLabel.Text = "Имя: " + user.FName;
+                        snameLabel.Text = "Фамилия: " + user.SName;
+                        logLabel.Text = "Логин: " + user.Login;
+                        passLabel.Text = "Пароль: " + user.Password;
                     }
                 }
                 else
@@ -161,7 +175,7 @@ namespace Client.Views
 
         private void loginBtn_Click( object sender, EventArgs e )
         {
-            Registration f = new Registration();
+            f = new Registration( this );
             f.Show();
         }
     }

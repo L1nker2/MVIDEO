@@ -49,8 +49,11 @@
             this.notLoginPanel = new System.Windows.Forms.Panel();
             this.loginBtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.notLoginPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -157,7 +160,7 @@
             // 
             this.passTb.Location = new System.Drawing.Point(7, 239);
             this.passTb.Name = "passTb";
-            this.passTb.Size = new System.Drawing.Size(250, 30);
+            this.passTb.Size = new System.Drawing.Size(250, 26);
             this.passTb.TabIndex = 7;
             // 
             // label5
@@ -165,7 +168,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(3, 209);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(78, 23);
+            this.label5.Size = new System.Drawing.Size(63, 18);
             this.label5.TabIndex = 6;
             this.label5.Text = "Пароль";
             // 
@@ -173,7 +176,7 @@
             // 
             this.logTb.Location = new System.Drawing.Point(7, 171);
             this.logTb.Name = "logTb";
-            this.logTb.Size = new System.Drawing.Size(250, 30);
+            this.logTb.Size = new System.Drawing.Size(250, 26);
             this.logTb.TabIndex = 5;
             // 
             // label4
@@ -181,7 +184,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 141);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 23);
+            this.label4.Size = new System.Drawing.Size(50, 18);
             this.label4.TabIndex = 4;
             this.label4.Text = "Логин";
             // 
@@ -189,7 +192,7 @@
             // 
             this.snameTb.Location = new System.Drawing.Point(7, 103);
             this.snameTb.Name = "snameTb";
-            this.snameTb.Size = new System.Drawing.Size(250, 30);
+            this.snameTb.Size = new System.Drawing.Size(250, 26);
             this.snameTb.TabIndex = 3;
             // 
             // label3
@@ -197,7 +200,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 73);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 23);
+            this.label3.Size = new System.Drawing.Size(72, 18);
             this.label3.TabIndex = 2;
             this.label3.Text = "Фамилия";
             // 
@@ -205,7 +208,7 @@
             // 
             this.fnameTb.Location = new System.Drawing.Point(7, 35);
             this.fnameTb.Name = "fnameTb";
-            this.fnameTb.Size = new System.Drawing.Size(250, 30);
+            this.fnameTb.Size = new System.Drawing.Size(250, 26);
             this.fnameTb.TabIndex = 1;
             // 
             // label2
@@ -213,12 +216,13 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 5);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 23);
+            this.label2.Size = new System.Drawing.Size(40, 18);
             this.label2.TabIndex = 0;
             this.label2.Text = "Имя";
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.webView21);
             this.panel2.Location = new System.Drawing.Point(337, 100);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1010, 521);
@@ -255,9 +259,22 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Похоже вы не выполнили вход для просмотра своего профиля =(";
             // 
+            // webView21
+            // 
+            this.webView21.AllowExternalDrop = true;
+            this.webView21.CreationProperties = null;
+            this.webView21.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.webView21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webView21.Location = new System.Drawing.Point(0, 0);
+            this.webView21.Name = "webView21";
+            this.webView21.Size = new System.Drawing.Size(1010, 521);
+            this.webView21.Source = new System.Uri("https://www.mvideo.ru/shops/store-list?from=header", System.UriKind.Absolute);
+            this.webView21.TabIndex = 0;
+            this.webView21.ZoomFactor = 1D;
+            // 
             // Profile
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1348, 621);
@@ -277,7 +294,9 @@
             this.Text = "Profile";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.notLoginPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -301,8 +320,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel notLoginPanel;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button loginBtn;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
+        private System.Windows.Forms.Panel notLoginPanel;
     }
 }

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="sqlstr" xml:space="preserve">
-    <value>Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\User\Documents\MVIDEO.mdf;Integrated Security=True;Connect Timeout=30</value>
+    <value>Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\MVIDEO.mdf;Integrated Security=True;Connect Timeout=30</value>
     <comment>Строка подключения</comment>
   </data>
 </root>
