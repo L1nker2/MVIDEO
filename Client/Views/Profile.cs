@@ -158,8 +158,7 @@ namespace Client.Views
             if(responce == "Okey")
             {
                 MessageBox.Show( "Изменение прошло успешно" );
-                this.Controls.Clear();
-                this.InitializeComponent();
+                LoadData();
             }
             else
             {
