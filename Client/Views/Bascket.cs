@@ -96,7 +96,7 @@ namespace Client
             checkBox.Location = new Point(10, 85);
             checkBox.Size = new Size(30, 30);
             checkBox.Checked = true;
-            checkBox.CheckedChanged += async (sender, e) => CheackBoxCheaked(product, checkBox);
+            checkBox.CheckedChanged += async (sender, e) => await CheackBoxCheaked(product, checkBox);
             checkBox.Parent = card;
 
             PictureBox picture = new PictureBox();
@@ -126,7 +126,7 @@ namespace Client
             numeric.Location = new Point(871, 40);
             numeric.Size = new Size(61, 30);
             numeric.Font = new Font("Arial", 12);
-            numeric.ValueChanged += async (sender, e) => NumericChanged(product, numeric);
+            numeric.ValueChanged += async (sender, e) => await NumericChanged(product, numeric);
             numeric.Minimum = numValue;
             numeric.Maximum = product.Count;
             numeric.Parent = card;
@@ -134,7 +134,7 @@ namespace Client
             PictureBox remove = new PictureBox();
             remove.Size = new Size(41, 41);
             remove.Location = new Point(881, 119);
-            remove.Click += async (sender, e) => RemoveFromBascket(product);
+            remove.Click += async (sender, e) => await RemoveFromBascket(product);
             remove.Image = Properties.Resources.trash;
             remove.SizeMode = PictureBoxSizeMode.StretchImage;
             remove.Parent = card;
@@ -144,7 +144,7 @@ namespace Client
         }
 
 
-        private static async void RemoveFromBascket(Product product)
+        private static async Task RemoveFromBascket(Product product)
         {
             var config = ConfigurationManager.OpenExeConfiguration( ConfigurationUserLevel.None );
 
@@ -158,7 +158,7 @@ namespace Client
         }
 
 
-        private static async void NumericChanged(Product product, NumericUpDown numeric )
+        private static async Task NumericChanged(Product product, NumericUpDown numeric )
         {
             if(numeric.Value > numValue)
             {
@@ -175,7 +175,7 @@ namespace Client
         }
 
 
-        private static async void CheackBoxCheaked(Product product, CheckBox checkBox)
+        private static async Task CheackBoxCheaked(Product product, CheckBox checkBox)
         {
             if( checkBox.Checked == true)
             {

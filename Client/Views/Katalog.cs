@@ -34,15 +34,15 @@ namespace Client
             } );
 
             // Отрисовка карточек товаров (например, вызов вашей функции отрисовки)
-            _Load(searchResults);
+            await _Load(searchResults);
         }
 
-        static public void TextBoxSearch_TextChanged(object sender, EventArgs e)
+        async static public Task TextBoxSearch_TextChanged(object sender, EventArgs e)
         {
             string searchText = Main.textBoxSearch.Text;
 
             // Вызов асинхронного метода поиска при изменении текста
-            PerformSearchAsync(searchText);
+            await PerformSearchAsync(searchText);
         }
 
         public static async Task<string> SendRequest(string server, int port, string command)
@@ -124,8 +124,8 @@ namespace Client
                         y += 375;
                         x = 47;
                     }
-                    CreateCard(new Point(x, y), product);
-                    x += 294;
+                    await CreateCard(new Point(x, y), product);
+                    x += 294;   
                     i++;
                 }
             }
@@ -136,59 +136,59 @@ namespace Client
             }
         }
         
-        public static async void CreateCard(Point location, Product product)
+        public static async Task CreateCard(Point location, Product product)
         {
             Panel cardPanel = new Panel();
             cardPanel.Location = location;
-            cardPanel.Size = new Size(220, 355);
+            cardPanel.Size = new Size( 220, 355 );
             cardPanel.BorderStyle = BorderStyle.None;
-            cardPanel.Margin = new Padding(60, 20, 0, 0);
+            cardPanel.Margin = new Padding( 60, 20, 0, 0 );
 
             // Создание картинки товара
             PictureBox imageBox = new PictureBox();
             imageBox.Parent = cardPanel;
-            imageBox.Location = new Point(0, 0);
-            imageBox.Size = new Size(220, 220);
+            imageBox.Location = new Point( 0, 0 );
+            imageBox.Size = new Size( 220, 220 );
             imageBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            imageBox.Image = DecodeBase64Image(product.ImgBase64);
+            imageBox.Image = DecodeBase64Image( product.ImgBase64 );
             imageBox.Cursor = Cursors.Hand;
-            imageBox.Click += async ( sender, e ) => ShowProduct( product.Id );
+            imageBox.Click += async ( sender, e ) => await ShowProduct( product.Id );
 
             // Создание названия товара
             Label nameLabel = new Label();
             nameLabel.Parent = cardPanel;
-            nameLabel.Location = new Point(0, 226);
-            nameLabel.Size = new Size(220, 48);
+            nameLabel.Location = new Point( 0, 226 );
+            nameLabel.Size = new Size( 220, 48 );
             nameLabel.AutoSize = false;
             nameLabel.AutoEllipsis = true;
-            nameLabel.Font = new Font("Arial", 12);
+            nameLabel.Font = new Font( "Arial", 12 );
             nameLabel.Text = product.Name;
 
             // Создание цены товара
             Label priceLabel = new Label();
             priceLabel.Parent = cardPanel;
-            priceLabel.Location = new Point(0, 283);
-            priceLabel.Size = new Size(220, 30);
+            priceLabel.Location = new Point( 0, 283 );
+            priceLabel.Size = new Size( 220, 30 );
             priceLabel.AutoSize = true;
-            priceLabel.Font = new Font("Arial", 12);
+            priceLabel.Font = new Font( "Arial", 12 );
             priceLabel.Text = product.Price + " ₽";
 
             // Создание кнопки добавления в корзину
             Button addButton = new Button();
             addButton.Parent = cardPanel;
-            addButton.Location = new Point(60, 320);
-            addButton.Size = new Size(100, 35);
-            addButton.Font = new Font("Arial", 12, FontStyle.Bold);
+            addButton.Location = new Point( 60, 320 );
+            addButton.Size = new Size( 100, 35 );
+            addButton.Font = new Font( "Arial", 12, FontStyle.Bold );
             addButton.ForeColor = Color.White;
-            addButton.BackColor = ColorTranslator.FromHtml("#e21235");
+            addButton.BackColor = ColorTranslator.FromHtml( "#e21235" );
             addButton.Text = "В корзину";
-            addButton.Click += async (sender, e) => BuyButtonClick(product.Id);
+            addButton.Click += async ( sender, e ) => await BuyButtonClick( product.Id );
 
             // Добавление элементов карточки на панель
-            cardPanel.Controls.Add(imageBox);
-            cardPanel.Controls.Add(nameLabel);
-            cardPanel.Controls.Add(priceLabel);
-            cardPanel.Controls.Add(addButton);
+            cardPanel.Controls.Add( imageBox );
+            cardPanel.Controls.Add( nameLabel );
+            cardPanel.Controls.Add( priceLabel );
+            cardPanel.Controls.Add( addButton );
 
             if (product.Count == 0)
             {
@@ -196,10 +196,10 @@ namespace Client
             }
 
             // Добавление панели на форму
-            productPanel.Controls.Add(cardPanel);
+            productPanel.Controls.Add( cardPanel );
         }
 
-        private static async void ShowProduct(int productId )
+        private static async Task ShowProduct(int productId )
         {
             Product product = new Product();
             for(i = 0; i < products.Count; i++)
@@ -212,7 +212,7 @@ namespace Client
             Main.openChildForm( new CardForm(product) );
         }
 
-        public static async void BuyButtonClick(int productId)
+        public static async Task BuyButtonClick(int productId)
         {
             if (ConfigurationManager.AppSettings["isLogin"] == "false")
             {
@@ -246,7 +246,7 @@ namespace Client
             }
         }
 
-        private void SelectCategory(string category)
+        async private void SelectCategory(string category)
         {
             productPanel.Controls.Clear();
             List<Product> productsWithCategory = new List<Product>();
@@ -257,10 +257,9 @@ namespace Client
                     productsWithCategory.Add(product);
                 }
             }
-            _Load(productsWithCategory);
+            await _Load(productsWithCategory);
         }
-
-        public static void _Load(List<Product> products)
+        async public static Task _Load(List<Product> products)
         {
             if(products.Count == 0)
             {
@@ -283,7 +282,7 @@ namespace Client
                     y += 375;
                     x = 47;
                 }
-                CreateCard(new Point(x, y), product);
+                await CreateCard(new Point(x, y), product);
                 x += 294;
                 i++;
             }

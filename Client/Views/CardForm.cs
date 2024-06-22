@@ -15,7 +15,7 @@ namespace Client.Views
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.Image = Katalog.DecodeBase64Image( product.ImgBase64 );
 
-            button1.Click += async ( sender, e ) => Katalog.BuyButtonClick( product.Id );
+            button1.Click += async ( sender, e ) => await Katalog.BuyButtonClick( product.Id );
         }
     }
 }

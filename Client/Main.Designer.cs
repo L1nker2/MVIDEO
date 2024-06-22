@@ -1,4 +1,6 @@
-﻿namespace Client
+﻿using System.Runtime.Remoting;
+
+namespace Client
 {
     partial class Main
     {
@@ -74,7 +76,7 @@
             textBoxSearch.Name = "textBoxSearch";
             textBoxSearch.Size = new System.Drawing.Size(403, 30);
             textBoxSearch.TabIndex = 4;
-            textBoxSearch.TextChanged += Katalog.TextBoxSearch_TextChanged;
+            textBoxSearch.TextChanged += async ( sender, e ) => await Katalog.TextBoxSearch_TextChanged( sender, e );
             // 
             // button2
             // 
