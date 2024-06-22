@@ -148,12 +148,12 @@ namespace Client
         {
             var config = ConfigurationManager.OpenExeConfiguration( ConfigurationUserLevel.None );
 
-            string command = $"RemoveProductPlease&userId={config.AppSettings.Settings["userId"].Value} & productId={product.Id}";
+            string command = $"RemoveProductPlease&userId={config.AppSettings.Settings["userId"].Value}&productId={product.Id}";
 
             flowLayoutPanel1.Controls.Clear();
 
+            priceMap.Clear();
             await LoadProduct( command );
-            priceMap.Remove( product );
             LoadPrice();
         }
 

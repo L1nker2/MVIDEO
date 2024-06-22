@@ -74,6 +74,7 @@
             textBoxSearch.Name = "textBoxSearch";
             textBoxSearch.Size = new System.Drawing.Size(403, 30);
             textBoxSearch.TabIndex = 4;
+            textBoxSearch.TextChanged += Katalog.TextBoxSearch_TextChanged;
             // 
             // button2
             // 

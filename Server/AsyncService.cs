@@ -80,7 +80,7 @@ namespace Server
                         Console.WriteLine("Received service request: " + request);
                         string response = Response(request);
 
-                        Console.WriteLine("Computed response is: " + response + "\n");
+                        //Console.WriteLine("Computed response is: " + response + "\n");
                         await writer.WriteLineAsync(response);
                     }
 
@@ -104,12 +104,13 @@ namespace Server
 
             string command = data[0].Substring(8);
 
+            Console.WriteLine(command);
 
             if (command == "LoadProductsPlease")
             {
                 List<Product> products = new DataBase().Product.ToList();
                 string serializedProducts = JsonConvert.SerializeObject(products);
-
+                Console.WriteLine("loadproductplease complete");
                 return serializedProducts;
             }
 
@@ -122,7 +123,7 @@ namespace Server
                 string pass = data[4].Substring(9);
 
                 int id = DbController.Registration(fname, sname, login, pass);
-
+                Console.WriteLine("registrationplease complete");
                 return id.ToString();
             }
 
@@ -133,8 +134,8 @@ namespace Server
                 string pass = data[2].Substring(5);
 
                 User user = DbController.Login(login, pass);
-
-                if(user != null)
+                Console.WriteLine("loginplease complete");
+                if (user != null)
                 {
                     return user.Id.ToString();
                 }
@@ -150,8 +151,8 @@ namespace Server
                 string id = data[1].Substring(3);
 
                 List<Product> products = DbController.Basket(int.Parse(id));
-
-                if(products != null)
+                Console.WriteLine("loadbasketplease complete");
+                if (products != null)
                 {
                     string serializedProducts = JsonConvert.SerializeObject(products);
 
@@ -174,7 +175,7 @@ namespace Server
                     Console.WriteLine(pruductId);
 
                     DbController.AddToBasket(userId, pruductId);
-
+                    Console.WriteLine("addtobasketplease complete");
                     return "Okey";
                 }
                 catch(Exception ex)
@@ -187,11 +188,11 @@ namespace Server
 
             if (command == "RemoveProductPlease")
             {
-                int.TryParse(data[1].Substring(7), out int userId);
-                int.TryParse(data[2].Substring(10), out int productId);
-
                 try
                 {
+                    int.TryParse( data[1].Substring( 7 ), out int userId );
+                    string test = data[2].Substring( 10 );
+                    int.TryParse( test, out int productId );
                     DbController.RemoveProduct(userId, productId);
 
                     List<Product> products = DbController.Basket(userId);
@@ -199,11 +200,12 @@ namespace Server
                     if (products != null)
                     {
                         string serializedProducts = JsonConvert.SerializeObject(products);
-
+                        Console.WriteLine("removeproductplease complete");
                         return serializedProducts;
                     }
                     else
                     {
+                        Console.WriteLine("removeproductplease error");
                         return "Empty";
                     }
                 }
@@ -231,7 +233,7 @@ namespace Server
                 };
 
                 DbController.EditUser( id, user );
-
+                Console.WriteLine("updateuserplease complete");
                 return "Okey";
             }
 
@@ -242,6 +244,7 @@ namespace Server
                 if(user != null)
                 {
                     string serializedUser= JsonConvert.SerializeObject( user );
+                    Console.WriteLine("loaduserdataplease complete");
                     return serializedUser;
                 }
                 else

@@ -27,11 +27,11 @@ namespace Client
 
         static public async Task PerformSearchAsync(string searchText)
         {
-            List<Product> searchResults = await Task.Run(() =>
+            List<Product> searchResults = await Task.Run( () =>
             {
-                // Поиск товаров, соответствующих введенному тексту
-                return products.Where(p => p.Name.Contains(searchText)).ToList();
-            });
+                // Поиск товаров, соответствующих введенному тексту (без учета регистра)
+                return products.Where( p => p.Name.IndexOf( searchText, StringComparison.CurrentCultureIgnoreCase ) >= 0 ).ToList();
+            } );
 
             // Отрисовка карточек товаров (например, вызов вашей функции отрисовки)
             _Load(searchResults);
